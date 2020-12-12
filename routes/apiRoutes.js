@@ -1,6 +1,6 @@
 // Require/import the HTTP module
 
-var notes = require("../db/db");
+var db = require("./db");
 // var index = require("./public/index");
 
 
@@ -12,18 +12,13 @@ module.exports = function(app) {
 
 // Establish Routes
 
-app.get("/api/notes", function (req, res) {
-    res.json(notes);
+app.get("/api/notes", function(req, res) {
+    res.json(db);
   });
 
-  
-app.get("/api/notes", function (req, res) {
-    res.json('*');
-
-
-app.get("/api/notes/:id", function (req, res) {
-      res.json(req.params.id);
-        });
+  // app.get("/api/notes/:id", function (req, res) {
+  //     res.json(req.params.id);
+  //       });
         
 app.post("/api/notes", function(req, res) {
   const newNote = req.body;
@@ -40,11 +35,19 @@ app.post("/api/notes", function(req, res) {
     res.json(false);
   }
 });
-   notes.push(req.body);
-  res.json(false);
 },
 app.delete("/api/notes/:id", function (req, res) {
-  res.json(req.params.id);
-    }))};
+  // res.json(req.params.id);
+  //   });
+
+    db.Notes.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+      .then(function(notes) {
+        res.json(notes);
+      });
+  });
      
 
