@@ -1,6 +1,6 @@
 // Require/import the HTTP module
 
-var db = require("./db");
+var notes = require("../db/db.json");
 // var index = require("./public/index");
 
 
@@ -37,8 +37,8 @@ app.post("/api/notes", function(req, res) {
 });
 },
 app.delete("/api/notes/:id", function (req, res) {
-  // res.json(req.params.id);
-  //   });
+  res.json(req.params.id);
+  });
 
     db.Notes.destroy({
       where: {
@@ -48,6 +48,6 @@ app.delete("/api/notes/:id", function (req, res) {
       .then(function(notes) {
         res.json(notes);
       });
-  });
+  
      
 
